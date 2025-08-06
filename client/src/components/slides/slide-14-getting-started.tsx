@@ -9,7 +9,8 @@ export function Slide14GettingStarted() {
       tools: [
         { name: "ChatGPT", description: "General purpose AI assistant", icon: MessageCircle, free: true, url: "https://chat.openai.com" },
         { name: "Claude", description: "Advanced reasoning and analysis", icon: MessageCircle, free: true, url: "https://claude.ai" },
-        { name: "Perplexity", description: "AI-powered search with sources", icon: Search, free: true, url: "https://perplexity.ai" }
+        { name: "Perplexity", description: "AI-powered search with sources", icon: Search, free: true, url: "https://perplexity.ai" },
+        { name: "Notion AI", description: "AI-powered note-taking and documentation", icon: MessageCircle, free: true, url: "https://notion.so" }
       ],
       color: "from-blue-500 to-teal-500"
     },
@@ -25,7 +26,9 @@ export function Slide14GettingStarted() {
       category: "Development",
       tools: [
         { name: "Cursor", description: "AI-powered code editor", icon: Code, free: true, url: "https://cursor.sh" },
-        { name: "GitHub Copilot", description: "AI pair programmer", icon: Code, free: false, url: "https://github.com/features/copilot" }
+        { name: "GitHub Copilot", description: "AI pair programmer", icon: Code, free: false, url: "https://github.com/features/copilot" },
+        { name: "Claude Code", description: "AI coding assistant by Anthropic", icon: Code, free: true, url: "https://claude.ai" },
+        { name: "Replit AI", description: "AI coding in the browser", icon: Code, free: true, url: "https://replit.com" }
       ],
       color: "from-purple-500 to-pink-500"
     },
@@ -33,32 +36,53 @@ export function Slide14GettingStarted() {
       category: "Presentation & Media",
       tools: [
         { name: "Gamma", description: "AI presentation maker", icon: Presentation, free: true, url: "https://gamma.app" },
-        { name: "Otter.ai", description: "Meeting transcription", icon: Mic, free: true, url: "https://otter.ai" }
+        { name: "Otter.ai", description: "Meeting transcription", icon: Mic, free: true, url: "https://otter.ai" },
+        { name: "Beautiful.AI", description: "Smart presentation design", icon: Presentation, free: true, url: "https://beautiful.ai" },
+        { name: "Tome", description: "AI storytelling presentations", icon: Presentation, free: true, url: "https://tome.app" }
       ],
       color: "from-orange-500 to-red-500"
+    },
+    {
+      category: "Productivity & Organization",
+      tools: [
+        { name: "Motion", description: "AI-powered calendar and task management", icon: Zap, free: false, url: "https://usemotion.com" },
+        { name: "Superhuman", description: "AI email management", icon: MessageCircle, free: false, url: "https://superhuman.com" },
+        { name: "Jasper", description: "AI marketing content creation", icon: MessageCircle, free: false, url: "https://jasper.ai" }
+      ],
+      color: "from-pink-500 to-purple-500"
     }
   ];
 
   const professionRecommendations = [
     {
       profession: "Foreign Traders",
-      tools: ["DeepL for translation", "Perplexity for market research", "ChatGPT for contract analysis"],
+      tools: ["DeepL for translation", "Perplexity for market research", "ChatGPT for contract analysis", "Notion AI for documentation"],
       icon: "🌍"
     },
     {
       profession: "Educators", 
-      tools: ["ChatGPT for lesson plans", "Grammarly for content", "Gamma for presentations"],
+      tools: ["ChatGPT for lesson plans", "Grammarly for content", "Gamma for presentations", "Notion AI for curriculum"],
       icon: "📚"
     },
     {
       profession: "Psychologists",
-      tools: ["Claude for research", "Perplexity for literature review", "ChatGPT for documentation"],
+      tools: ["Claude for research", "Perplexity for literature review", "ChatGPT for documentation", "Otter.ai for sessions"],
       icon: "🧠"
     },
     {
       profession: "Marketers",
-      tools: ["ChatGPT for copy", "Gamma for decks", "Claude for strategy"],
+      tools: ["Jasper for copy", "Gamma for decks", "Claude for strategy", "Motion for planning"],
       icon: "📈"
+    },
+    {
+      profession: "Developers",
+      tools: ["Cursor for coding", "GitHub Copilot for assistance", "Claude Code for debugging", "Replit AI for prototyping"],
+      icon: "💻"
+    },
+    {
+      profession: "Content Creators",
+      tools: ["Tome for presentations", "Beautiful.AI for design", "ChatGPT for writing", "Gamma for slides"],
+      icon: "🎨"
     }
   ];
 
@@ -156,7 +180,7 @@ export function Slide14GettingStarted() {
         >
           <h2 className="text-2xl font-bold mb-8 text-center">Recommendations by Profession</h2>
           
-          <div className="grid md:grid-cols-2 lg:grid-cols-4 gap-6">
+          <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-6">
             {professionRecommendations.map((rec, index) => (
               <motion.div
                 key={rec.profession}

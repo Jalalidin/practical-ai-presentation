@@ -100,37 +100,40 @@ export function Slide13RAG() {
         
         {/* RAG Process Steps */}
         <motion.div 
-          className="grid lg:grid-cols-3 gap-8 mb-16"
+          className="relative max-w-4xl mx-auto mb-16"
           initial={{ opacity: 0, y: 50 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.8, delay: 0.4 }}
         >
-          {ragSteps.map((step, index) => (
-            <motion.div
-              key={step.title}
-              className="text-center"
-              initial={{ opacity: 0, y: 30 }}
-              animate={{ opacity: 1, y: 0 }}
-              transition={{ duration: 0.6, delay: 0.1 * index }}
-            >
-              {/* Connection Line */}
-              {index < ragSteps.length - 1 && (
-                <div className="hidden lg:block absolute top-24 left-1/2 w-32 h-0.5 bg-gradient-to-r from-current to-transparent opacity-30"></div>
-              )}
-              
-              <div className={`relative w-20 h-20 bg-gradient-to-r ${step.color} rounded-2xl flex items-center justify-center mx-auto mb-6 z-10`}>
-                <step.icon className="text-white h-10 w-10" />
-              </div>
-              
-              <h3 className={`text-xl font-bold mb-4 bg-gradient-to-r ${step.color} bg-clip-text text-transparent`}>
-                {step.title}
-              </h3>
-              
-              <p className="text-gray-300 text-sm leading-relaxed">
-                {step.description}
-              </p>
-            </motion.div>
-          ))}
+          {/* Connection Line */}
+          <div className="hidden lg:block absolute top-10 left-0 right-0 h-0.5 bg-gradient-to-r from-blue-500 via-teal-500 to-purple-500 opacity-30"></div>
+          
+          <div className="grid lg:grid-cols-3 gap-8">
+            {ragSteps.map((step, index) => (
+              <motion.div
+                key={step.title}
+                className="text-center relative"
+                initial={{ opacity: 0, y: 30 }}
+                animate={{ opacity: 1, y: 0 }}
+                transition={{ duration: 0.6, delay: 0.1 * index }}
+              >
+                {/* Step number dot on line */}
+                <div className="hidden lg:block absolute top-10 left-1/2 transform -translate-x-1/2 -translate-y-1/2 w-4 h-4 bg-gradient-to-r from-blue-500 to-purple-500 rounded-full z-10"></div>
+                
+                <div className={`w-20 h-20 bg-gradient-to-r ${step.color} rounded-2xl flex items-center justify-center mx-auto mb-6`}>
+                  <step.icon className="text-white h-10 w-10" />
+                </div>
+                
+                <h3 className={`text-xl font-bold mb-4 bg-gradient-to-r ${step.color} bg-clip-text text-transparent`}>
+                  {step.title}
+                </h3>
+                
+                <p className="text-gray-300 text-sm leading-relaxed">
+                  {step.description}
+                </p>
+              </motion.div>
+            ))}
+          </div>
         </motion.div>
         
         {/* AI Brain + Filing Cabinet Visualization */}

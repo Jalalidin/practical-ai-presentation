@@ -116,35 +116,44 @@ export function Slide9GenerativeAITypes() {
           <div className="bg-gradient-to-r from-orange-500/10 to-red-500/10 rounded-3xl p-8 border border-orange-500/30">
             <h2 className="text-2xl font-bold mb-6 text-center">GANs: AI vs AI Competition</h2>
             
-            <div className="grid md:grid-cols-2 gap-8">
-              {/* Generator */}
-              <div className="text-center">
-                <div className="w-20 h-20 bg-gradient-to-r from-blue-500 to-teal-500 rounded-2xl flex items-center justify-center mx-auto mb-4">
-                  <Zap className="text-white h-10 w-10" />
+            <div className="relative">
+              <div className="grid md:grid-cols-2 gap-8">
+                {/* Generator */}
+                <div className="text-center">
+                  <div className="w-20 h-20 bg-gradient-to-r from-blue-500 to-teal-500 rounded-2xl flex items-center justify-center mx-auto mb-4">
+                    <Zap className="text-white h-10 w-10" />
+                  </div>
+                  <h3 className="text-xl font-bold text-blue-400 mb-3">Generator</h3>
+                  <p className="text-gray-300 text-sm">Creates fake content trying to fool the discriminator</p>
+                  <div className="mt-4 text-xs text-gray-400">
+                    "I'll make this image so realistic!"
+                  </div>
                 </div>
-                <h3 className="text-xl font-bold text-blue-400 mb-3">Generator</h3>
-                <p className="text-gray-300 text-sm">Creates fake content trying to fool the discriminator</p>
-                <div className="mt-4 text-xs text-gray-400">
-                  "I'll make this image so realistic!"
+                
+                {/* Discriminator */}
+                <div className="text-center">
+                  <div className="w-20 h-20 bg-gradient-to-r from-red-500 to-orange-500 rounded-2xl flex items-center justify-center mx-auto mb-4">
+                    <Camera className="text-white h-10 w-10" />
+                  </div>
+                  <h3 className="text-xl font-bold text-red-400 mb-3">Discriminator</h3>
+                  <p className="text-gray-300 text-sm">Tries to spot fake content and distinguish from real</p>
+                  <div className="mt-4 text-xs text-gray-400">
+                    "That's fake! I can tell!"
+                  </div>
                 </div>
               </div>
               
-              {/* VS Symbol */}
-              <div className="hidden md:block absolute left-1/2 top-1/2 transform -translate-x-1/2 -translate-y-1/2">
+              {/* VS Symbol - Centered between the two sections */}
+              <div className="hidden md:flex absolute left-1/2 top-1/4 transform -translate-x-1/2 -translate-y-1/2 z-10">
+                <div className="w-12 h-12 bg-gradient-to-r from-red-500 to-orange-500 rounded-full flex items-center justify-center border-4 border-gray-800">
+                  <span className="text-white font-bold text-sm">VS</span>
+                </div>
+              </div>
+              
+              {/* Mobile VS Symbol */}
+              <div className="md:hidden flex justify-center my-4">
                 <div className="w-12 h-12 bg-gradient-to-r from-red-500 to-orange-500 rounded-full flex items-center justify-center">
-                  <span className="text-white font-bold">VS</span>
-                </div>
-              </div>
-              
-              {/* Discriminator */}
-              <div className="text-center">
-                <div className="w-20 h-20 bg-gradient-to-r from-red-500 to-orange-500 rounded-2xl flex items-center justify-center mx-auto mb-4">
-                  <Camera className="text-white h-10 w-10" />
-                </div>
-                <h3 className="text-xl font-bold text-red-400 mb-3">Discriminator</h3>
-                <p className="text-gray-300 text-sm">Tries to spot fake content and distinguish from real</p>
-                <div className="mt-4 text-xs text-gray-400">
-                  "That's fake! I can tell!"
+                  <span className="text-white font-bold text-sm">VS</span>
                 </div>
               </div>
             </div>
