@@ -4,6 +4,9 @@ import path from "path";
 import runtimeErrorOverlay from "@replit/vite-plugin-runtime-error-modal";
 
 export default defineConfig({
+  // Use a different base path when building for GitHub Pages
+  // so the app works under /practical-ai-presentation/
+  base: process.env.NODE_ENV === "production" ? "/practical-ai-presentation/" : "/",
   plugins: [
     react(),
     runtimeErrorOverlay(),

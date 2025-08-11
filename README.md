@@ -1,16 +1,16 @@
-# Practical AI - Beyond ChatGPT
-### Interactive Presentation on AI Tools and Concepts
+# Practical AI — Beyond ChatGPT
+### An open-source, interactive slide deck that explains AI basics for everyone
 
-A modern, interactive presentation application built with React and TypeScript that explores AI concepts, tools, and practical applications. This presentation covers everything from generative AI fundamentals to advanced techniques like RAG (Retrieval-Augmented Generation) and provides comprehensive tool recommendations for different professions.
+This project is a friendly, interactive presentation for non‑technical audiences. It explains what AI is, how modern tools like ChatGPT work, and where AI can help in day‑to‑day life and work. It’s built to be shared in meetups, classrooms, community groups, and team sessions. Fully open‑source—feel free to fork, remix, and present.
 
 ## 🚀 Live Demo
 
-The presentation is an interactive slide deck that can be navigated using:
+The presentation works like a website. Use these controls to navigate:
 - **Arrow Keys** (← → ↑ ↓) for slide navigation
 - **Space Bar** to advance to next slide
 - **Mouse/Touch** for interactive elements and external tool links
 
-## 📋 Presentation Overview
+## 📋 What’s inside
 
 ### 14 Comprehensive Slides Covering:
 
@@ -24,7 +24,7 @@ The presentation is an interactive slide deck that can be navigated using:
 8. **RAG (Retrieval-Augmented Generation)** - Giving AI your knowledge
 9. **Getting Started** - Tools and resources by profession
 
-### Key Features:
+### Key features
 - **Interactive Navigation** with smooth animations
 - **Professional UI/UX** with dark theme and gradients
 - **Responsive Design** optimized for all screen sizes
@@ -32,7 +32,7 @@ The presentation is an interactive slide deck that can be navigated using:
 - **Profession-Specific Recommendations** for different career paths
 - **Visual Demonstrations** with animated explanations
 
-## 🛠️ Technology Stack
+## 🛠️ How it’s built
 
 ### Frontend
 - **React 18** - Modern frontend framework
@@ -42,11 +42,8 @@ The presentation is an interactive slide deck that can be navigated using:
 - **shadcn/ui** - High-quality UI components
 - **Radix UI** - Accessible UI primitives
 
-### Backend
-- **Express.js** - Web server framework
-- **TypeScript** - Full-stack type safety
-- **Drizzle ORM** - Type-safe database queries
-- **PostgreSQL** - Database support
+### Backend (optional)
+- **Express.js** server wraps the static build for local dev and optional deployments. You don’t need a database to run or present this project.
 
 ### Development Tools
 - **Vite** - Fast development server and build tool
@@ -84,7 +81,7 @@ The presentation includes comprehensive tool recommendations across 5 categories
 - Superhuman - AI email management
 - Jasper - AI marketing content creation
 
-## 🏗️ Project Structure
+## 🏗️ Project structure
 
 ```
 ├── client/                 # Frontend React application
@@ -108,7 +105,7 @@ The presentation includes comprehensive tool recommendations across 5 categories
 └── package.json
 ```
 
-## 🚀 Getting Started
+## 🧰 Getting started
 
 ### Prerequisites
 - Node.js 18+ 
@@ -127,21 +124,21 @@ The presentation includes comprehensive tool recommendations across 5 categories
    npm install
    ```
 
-3. **Start development server**
+3. **Start the presentation locally**
    ```bash
    npm run dev
    ```
 
 4. **Open your browser**
-   Navigate to `http://localhost:5000` to view the presentation
+   Go to `http://localhost:5000` to view the slides
 
-### Available Scripts
+### Available scripts
 
 - `npm run dev` - Start development server with hot reload
 - `npm run build` - Build for production
 - `npm run start` - Start production server
 
-## 📱 Usage Instructions
+## 📱 How to use
 
 ### Navigation Controls
 - **← → Arrow Keys**: Navigate between slides
@@ -149,13 +146,13 @@ The presentation includes comprehensive tool recommendations across 5 categories
 - **Space Bar**: Advance to next slide
 - **Mouse Click**: Interact with buttons and external links
 
-### Interactive Elements
+### Interactive elements
 - **Tool Cards**: Click to open external AI tool websites
 - **Progress Indicators**: Track your progress through the presentation
 - **Professional Recommendations**: Tailored tool suggestions by career
 - **Learning Resources**: Direct links to documentation and guides
 
-## 🎯 Target Audience
+## 🎯 Who this is for
 
 This presentation is designed for:
 - **Business Professionals** exploring AI adoption
@@ -164,7 +161,7 @@ This presentation is designed for:
 - **Students** learning about AI fundamentals
 - **Anyone** curious about practical AI applications
 
-## 🌟 Key Learning Outcomes
+## 🌟 What you’ll learn
 
 After viewing this presentation, users will understand:
 - **Fundamental AI Concepts** - LLMs, generative AI, and deployment models
@@ -173,7 +170,7 @@ After viewing this presentation, users will understand:
 - **Implementation Strategies** - When to use cloud vs local AI solutions
 - **Advanced Techniques** - RAG and custom AI implementations
 
-## 🔧 Customization
+## 🔧 Customize the deck
 
 The presentation is built with modularity in mind:
 - **Slides** can be easily added, removed, or reordered
@@ -181,7 +178,7 @@ The presentation is built with modularity in mind:
 - **Content** is easily editable through TypeScript interfaces
 - **Tools** and recommendations can be updated as AI landscape evolves
 
-## 📊 Performance Features
+## 📊 Performance
 
 - **Optimized Loading** - Progressive slide loading for fast initial display
 - **Smooth Animations** - Hardware-accelerated transitions with Framer Motion
@@ -210,4 +207,26 @@ This project is licensed under the MIT License - see the LICENSE file for detail
 
 ---
 
-*Built with ❤️ for the AI community. Helping professionals navigate the AI revolution with practical tools and actionable insights.*
+*Built with ❤️ for the community. Helping everyone navigate the AI revolution with practical tools and plain‑English explanations.*
+
+---
+
+## 🌐 Deploying to GitHub Pages
+
+This repository includes a GitHub Actions workflow that builds and deploys the static site to GitHub Pages from the `main` branch.
+
+1) Enable Pages for this repo
+- Settings → Pages → Build and deployment → Source: GitHub Actions
+
+2) Push to `main`
+- The workflow at `.github/workflows/pages.yml` will:
+  - Install dependencies
+  - Build the site with Vite
+  - Publish `dist/public` to GitHub Pages
+
+3) Your site will be available at:
+- `https://jalalidin.github.io/practical-ai-presentation/`
+
+Notes
+- The Vite `base` is set to `/practical-ai-presentation/` in production so assets resolve correctly on Pages.
+- If you fork the project, update the repository name in `vite.config.ts` `base` and the URL above.
