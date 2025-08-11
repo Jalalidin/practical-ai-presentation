@@ -1,0 +1,796 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Practical AI - Beyond ChatGPT</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script>
+    tailwind.config = {
+        theme: {
+            extend: {
+                colors: {
+                    'ai-navy': '#1e293b',
+                    'ai-blue': '#3b82f6',
+                    'ai-teal': '#14b8a6',
+                    'ai-purple': '#8b5cf6',
+                    'ai-gray': '#64748b'
+                },
+                fontFamily: {
+                    'inter': ['Inter', 'sans-serif']
+                },
+                animation: {
+                    'fade-in': 'fadeIn 0.6s ease-in-out',
+                    'slide-up': 'slideUp 0.8s ease-out',
+                    'pulse-slow': 'pulse 3s cubic-bezier(0.4, 0, 0.6, 1) infinite',
+                    'float': 'float 6s ease-in-out infinite'
+                },
+                keyframes: {
+                    fadeIn: {
+                        '0%': { opacity: '0', transform: 'translateY(20px)' },
+                        '100%': { opacity: '1', transform: 'translateY(0)' }
+                    },
+                    slideUp: {
+                        '0%': { transform: 'translateY(100%)' },
+                        '100%': { transform: 'translateY(0)' }
+                    },
+                    float: {
+                        '0%, 100%': { transform: 'translateY(0px)' },
+                        '50%': { transform: 'translateY(-20px)' }
+                    }
+                }
+            }
+        }
+    };
+    </script>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+</head>
+<body class="font-inter bg-gradient-to-br from-ai-navy via-slate-900 to-ai-navy text-white overflow-x-hidden">
+    
+    <!-- Navigation Bar -->
+    <nav class="fixed top-0 left-0 right-0 z-50 bg-black/20 backdrop-blur-lg border-b border-white/10">
+        <div class="max-w-7xl mx-auto px-6 py-4 flex items-center justify-between">
+            <div class="flex items-center space-x-3">
+                <div class="w-8 h-8 bg-gradient-to-r from-ai-blue to-ai-teal rounded-lg flex items-center justify-center">
+                    <i class="fas fa-robot text-white text-sm"></i>
+                </div>
+                <span class="text-lg font-semibold">Practical AI</span>
+            </div>
+            
+            <!-- Progress Bar -->
+            <div class="flex-1 max-w-md mx-8">
+                <div class="w-full bg-white/20 rounded-full h-2">
+                    <div id="progress-bar" class="bg-gradient-to-r from-ai-blue to-ai-teal h-2 rounded-full transition-all duration-500" style="width: 7%"></div>
+                </div>
+                <div class="text-xs text-gray-300 mt-1 text-center">
+                    <span id="slide-counter">1</span> / <span id="total-slides">14</span>
+                </div>
+            </div>
+            
+            <!-- Navigation Controls -->
+            <div class="flex items-center space-x-3">
+                <button id="prev-btn" class="w-10 h-10 rounded-full bg-white/10 hover:bg-white/20 flex items-center justify-center transition-colors">
+                    <i class="fas fa-chevron-left text-sm"></i>
+                </button>
+                <button id="next-btn" class="w-10 h-10 rounded-full bg-ai-blue hover:bg-ai-blue/80 flex items-center justify-center transition-colors">
+                    <i class="fas fa-chevron-right text-sm"></i>
+                </button>
+                <button class="w-10 h-10 rounded-full bg-white/10 hover:bg-white/20 flex items-center justify-center transition-colors">
+                    <i class="fas fa-expand text-sm"></i>
+                </button>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Main Presentation Container -->
+    <main class="pt-20 min-h-screen">
+        
+        <!-- Slide 1: Introduction - Practical AI -->
+        <section id="slide-1" class="slide active min-h-screen flex items-center justify-center px-6">
+            <div class="max-w-6xl mx-auto text-center">
+                <div class="animate-fade-in">
+                    <h1 class="text-6xl md:text-8xl font-black mb-6 bg-gradient-to-r from-ai-blue via-ai-teal to-ai-purple bg-clip-text text-transparent">
+                        Practical AI
+                    </h1>
+                    <h2 class="text-2xl md:text-4xl font-light mb-12 text-gray-300">
+                        Beyond ChatGPT
+                    </h2>
+                </div>
+                
+                <!-- AI Tools Icons -->
+                <div class="grid grid-cols-2 md:grid-cols-4 gap-6 max-w-2xl mx-auto mb-12 animate-slide-up">
+                    <div class="bg-white/10 backdrop-blur-sm rounded-2xl p-6 hover:bg-white/20 transition-all duration-300 animate-float">
+                        <i class="fas fa-comments text-3xl text-ai-blue mb-3"></i>
+                        <p class="text-sm font-medium">ChatGPT</p>
+                    </div>
+                    <div class="bg-white/10 backdrop-blur-sm rounded-2xl p-6 hover:bg-white/20 transition-all duration-300 animate-float" style="animation-delay: 0.2s;">
+                        <i class="fas fa-brain text-3xl text-ai-teal mb-3"></i>
+                        <p class="text-sm font-medium">Claude</p>
+                    </div>
+                    <div class="bg-white/10 backdrop-blur-sm rounded-2xl p-6 hover:bg-white/20 transition-all duration-300 animate-float" style="animation-delay: 0.4s;">
+                        <i class="fas fa-search text-3xl text-ai-purple mb-3"></i>
+                        <p class="text-sm font-medium">Perplexity</p>
+                    </div>
+                    <div class="bg-white/10 backdrop-blur-sm rounded-2xl p-6 hover:bg-white/20 transition-all duration-300 animate-float" style="animation-delay: 0.6s;">
+                        <i class="fas fa-magic text-3xl text-yellow-400 mb-3"></i>
+                        <p class="text-sm font-medium">More Tools</p>
+                    </div>
+                </div>
+                
+                <!-- Interactive Poll -->
+                <div class="bg-white/10 backdrop-blur-sm rounded-3xl p-8 max-w-2xl mx-auto animate-fade-in" style="animation-delay: 1s;">
+                    <h3 class="text-xl font-semibold mb-6">Quick Poll: Which AI tools have you used?</h3>
+                    <div class="space-y-3">
+                        <div class="poll-option bg-white/10 rounded-xl p-4 cursor-pointer hover:bg-ai-blue/30 transition-colors">
+                            <div class="flex justify-between items-center">
+                                <span>ChatGPT</span>
+                                <div class="w-32 bg-white/20 rounded-full h-2">
+                                    <div class="bg-ai-blue h-2 rounded-full" style="width: 85%"></div>
+                                </div>
+                                <span class="text-sm">85%</span>
+                            </div>
+                        </div>
+                        <div class="poll-option bg-white/10 rounded-xl p-4 cursor-pointer hover:bg-ai-teal/30 transition-colors">
+                            <div class="flex justify-between items-center">
+                                <span>Claude</span>
+                                <div class="w-32 bg-white/20 rounded-full h-2">
+                                    <div class="bg-ai-teal h-2 rounded-full" style="width: 45%"></div>
+                                </div>
+                                <span class="text-sm">45%</span>
+                            </div>
+                        </div>
+                        <div class="poll-option bg-white/10 rounded-xl p-4 cursor-pointer hover:bg-ai-purple/30 transition-colors">
+                            <div class="flex justify-between items-center">
+                                <span>Other Tools</span>
+                                <div class="w-32 bg-white/20 rounded-full h-2">
+                                    <div class="bg-ai-purple h-2 rounded-full" style="width: 25%"></div>
+                                </div>
+                                <span class="text-sm">25%</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Slide 2: The Business Case -->
+        <section id="slide-2" class="slide min-h-screen flex items-center justify-center px-6 hidden">
+            <div class="max-w-6xl mx-auto">
+                <div class="text-center mb-16">
+                    <h1 class="text-5xl md:text-7xl font-bold mb-6 bg-gradient-to-r from-ai-blue to-ai-teal bg-clip-text text-transparent">
+                        Why AI Matters Now
+                    </h1>
+                    <p class="text-xl text-gray-300 max-w-3xl mx-auto">
+                        Real numbers from organizations using AI effectively
+                    </p>
+                </div>
+                
+                <!-- Statistics Grid -->
+                <div class="grid md:grid-cols-3 gap-8 mb-16">
+                    <div class="bg-gradient-to-br from-ai-blue/20 to-ai-blue/10 backdrop-blur-sm rounded-3xl p-8 text-center hover:scale-105 transition-transform duration-300">
+                        <div class="w-16 h-16 bg-ai-blue rounded-2xl flex items-center justify-center mx-auto mb-6">
+                            <i class="fas fa-chart-line text-2xl text-white"></i>
+                        </div>
+                        <h3 class="text-4xl font-bold text-ai-blue mb-2">15-20%</h3>
+                        <p class="text-lg font-medium mb-2">Cost Reduction</p>
+                        <p class="text-sm text-gray-400">Average operational savings</p>
+                    </div>
+                    
+                    <div class="bg-gradient-to-br from-ai-teal/20 to-ai-teal/10 backdrop-blur-sm rounded-3xl p-8 text-center hover:scale-105 transition-transform duration-300">
+                        <div class="w-16 h-16 bg-ai-teal rounded-2xl flex items-center justify-center mx-auto mb-6">
+                            <i class="fas fa-boxes text-2xl text-white"></i>
+                        </div>
+                        <h3 class="text-4xl font-bold text-ai-teal mb-2">35%</h3>
+                        <p class="text-lg font-medium mb-2">Inventory Optimization</p>
+                        <p class="text-sm text-gray-400">Improved efficiency</p>
+                    </div>
+                    
+                    <div class="bg-gradient-to-br from-ai-purple/20 to-ai-purple/10 backdrop-blur-sm rounded-3xl p-8 text-center hover:scale-105 transition-transform duration-300">
+                        <div class="w-16 h-16 bg-ai-purple rounded-2xl flex items-center justify-center mx-auto mb-6">
+                            <i class="fas fa-users text-2xl text-white"></i>
+                        </div>
+                        <h3 class="text-4xl font-bold text-ai-purple mb-2">65%</h3>
+                        <p class="text-lg font-medium mb-2">Service Improvement</p>
+                        <p class="text-sm text-gray-400">Customer satisfaction boost</p>
+                    </div>
+                </div>
+                
+                <!-- Additional Benefits -->
+                <div class="grid md:grid-cols-2 gap-6 max-w-4xl mx-auto">
+                    <div class="bg-white/10 backdrop-blur-sm rounded-2xl p-6">
+                        <div class="flex items-center space-x-3 mb-3">
+                            <i class="fas fa-language text-ai-blue"></i>
+                            <span class="font-semibold">Translation Costs</span>
+                        </div>
+                        <p class="text-gray-300">50-70% reduction in professional translation expenses</p>
+                    </div>
+                    
+                    <div class="bg-white/10 backdrop-blur-sm rounded-2xl p-6">
+                        <div class="flex items-center space-x-3 mb-3">
+                            <i class="fas fa-rocket text-ai-teal"></i>
+                            <span class="font-semibold">Content Creation</span>
+                        </div>
+                        <p class="text-gray-300">3-5x faster marketing content generation</p>
+                    </div>
+                </div>
+                
+                <!-- Interactive Element -->
+                <div class="text-center mt-12">
+                    <div class="bg-gradient-to-r from-ai-blue to-ai-teal rounded-2xl p-8 max-w-2xl mx-auto">
+                        <h3 class="text-xl font-semibold mb-4">Show of Hands</h3>
+                        <p class="text-lg mb-6">Who would like to achieve similar results in your work?</p>
+                        <div class="flex justify-center space-x-4">
+                            <button class="bg-white/20 hover:bg-white/30 px-6 py-3 rounded-xl transition-colors">
+                                🙋‍♀️ Count me in!
+                            </button>
+                            <button class="bg-white/20 hover:bg-white/30 px-6 py-3 rounded-xl transition-colors">
+                                🤔 Tell me more
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Slide 3: Myth Busting -->
+        <section id="slide-3" class="slide min-h-screen flex items-center justify-center px-6 hidden">
+            <div class="max-w-6xl mx-auto">
+                <div class="text-center mb-16">
+                    <h1 class="text-5xl md:text-7xl font-bold mb-6 bg-gradient-to-r from-ai-purple to-ai-blue bg-clip-text text-transparent">
+                        Myth Busting
+                    </h1>
+                    <p class="text-xl text-gray-300 max-w-3xl mx-auto">
+                        What AI Really Is (And Isn't)
+                    </p>
+                </div>
+                
+                <!-- Myth vs Reality Grid -->
+                <div class="grid md:grid-cols-2 gap-8 max-w-5xl mx-auto mb-12">
+                    <!-- Myth 1 -->
+                    <div class="bg-red-500/10 border border-red-500/30 rounded-3xl p-8">
+                        <div class="flex items-center space-x-3 mb-6">
+                            <div class="w-12 h-12 bg-red-500 rounded-xl flex items-center justify-center">
+                                <i class="fas fa-times text-white"></i>
+                            </div>
+                            <h3 class="text-xl font-bold text-red-400">MYTH</h3>
+                        </div>
+                        <p class="text-lg mb-4">AI is only for big companies with huge budgets</p>
+                        <div class="border-t border-gray-600 pt-4">
+                            <div class="flex items-center space-x-3">
+                                <div class="w-8 h-8 bg-green-500 rounded-lg flex items-center justify-center">
+                                    <i class="fas fa-check text-white text-sm"></i>
+                                </div>
+                                <span class="text-green-400 font-semibold">REALITY</span>
+                            </div>
+                            <p class="text-gray-300 mt-2">Many powerful AI tools have free versions. Start small, scale up.</p>
+                        </div>
+                    </div>
+                    
+                    <!-- Myth 2 -->
+                    <div class="bg-red-500/10 border border-red-500/30 rounded-3xl p-8">
+                        <div class="flex items-center space-x-3 mb-6">
+                            <div class="w-12 h-12 bg-red-500 rounded-xl flex items-center justify-center">
+                                <i class="fas fa-times text-white"></i>
+                            </div>
+                            <h3 class="text-xl font-bold text-red-400">MYTH</h3>
+                        </div>
+                        <p class="text-lg mb-4">AI will replace all human professionals</p>
+                        <div class="border-t border-gray-600 pt-4">
+                            <div class="flex items-center space-x-3">
+                                <div class="w-8 h-8 bg-green-500 rounded-lg flex items-center justify-center">
+                                    <i class="fas fa-check text-white text-sm"></i>
+                                </div>
+                                <span class="text-green-400 font-semibold">REALITY</span>
+                            </div>
+                            <p class="text-gray-300 mt-2">AI enhances human capabilities. It's a powerful tool, not a replacement.</p>
+                        </div>
+                    </div>
+                    
+                    <!-- Myth 3 -->
+                    <div class="bg-red-500/10 border border-red-500/30 rounded-3xl p-8">
+                        <div class="flex items-center space-x-3 mb-6">
+                            <div class="w-12 h-12 bg-red-500 rounded-xl flex items-center justify-center">
+                                <i class="fas fa-times text-white"></i>
+                            </div>
+                            <h3 class="text-xl font-bold text-red-400">MYTH</h3>
+                        </div>
+                        <p class="text-lg mb-4">You need technical expertise to use AI</p>
+                        <div class="border-t border-gray-600 pt-4">
+                            <div class="flex items-center space-x-3">
+                                <div class="w-8 h-8 bg-green-500 rounded-lg flex items-center justify-center">
+                                    <i class="fas fa-check text-white text-sm"></i>
+                                </div>
+                                <span class="text-green-400 font-semibold">REALITY</span>
+                            </div>
+                            <p class="text-gray-300 mt-2">Modern AI interfaces are intuitive. If you can type, you can use AI.</p>
+                        </div>
+                    </div>
+                    
+                    <!-- Myth 4 -->
+                    <div class="bg-red-500/10 border border-red-500/30 rounded-3xl p-8">
+                        <div class="flex items-center space-x-3 mb-6">
+                            <div class="w-12 h-12 bg-red-500 rounded-xl flex items-center justify-center">
+                                <i class="fas fa-times text-white"></i>
+                            </div>
+                            <h3 class="text-xl font-bold text-red-400">MYTH</h3>
+                        </div>
+                        <p class="text-lg mb-4">AI tools are not available right now</p>
+                        <div class="border-t border-gray-600 pt-4">
+                            <div class="flex items-center space-x-3">
+                                <div class="w-8 h-8 bg-green-500 rounded-lg flex items-center justify-center">
+                                    <i class="fas fa-check text-white text-sm"></i>
+                                </div>
+                                <span class="text-green-400 font-semibold">REALITY</span>
+                            </div>
+                            <p class="text-gray-300 mt-2">Hundreds of AI tools are accessible today. The future is now.</p>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- Interactive Question -->
+                <div class="bg-gradient-to-r from-ai-blue/20 to-ai-purple/20 rounded-3xl p-8 max-w-2xl mx-auto">
+                    <h3 class="text-xl font-semibold mb-6 text-center">What AI myths have you heard?</h3>
+                    <div class="space-y-3">
+                        <button class="w-full bg-white/10 hover:bg-white/20 rounded-xl p-4 text-left transition-colors">
+                            "AI is too complicated for me"
+                        </button>
+                        <button class="w-full bg-white/10 hover:bg-white/20 rounded-xl p-4 text-left transition-colors">
+                            "AI will take my job"
+                        </button>
+                        <button class="w-full bg-white/10 hover:bg-white/20 rounded-xl p-4 text-left transition-colors">
+                            "AI is just hype"
+                        </button>
+                        <button class="w-full bg-white/10 hover:bg-white/20 rounded-xl p-4 text-left transition-colors">
+                            "AI is too expensive"
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Slide 4: AI Family Tree - Russian Nesting Dolls -->
+        <section id="slide-4" class="slide min-h-screen flex items-center justify-center px-6 hidden">
+            <div class="max-w-6xl mx-auto">
+                <div class="text-center mb-16">
+                    <h1 class="text-5xl md:text-7xl font-bold mb-6 bg-gradient-to-r from-ai-teal to-ai-purple bg-clip-text text-transparent">
+                        The AI Family Tree
+                    </h1>
+                    <p class="text-xl text-gray-300 max-w-3xl mx-auto">
+                        Understanding AI like Russian Nesting Dolls
+                    </p>
+                </div>
+                
+                <!-- Nesting Dolls Visualization -->
+                <div class="relative max-w-4xl mx-auto mb-16">
+                    <!-- Outer Doll - AI -->
+                    <div class="relative bg-gradient-to-br from-ai-blue/30 to-ai-blue/10 rounded-full aspect-square max-w-lg mx-auto p-12 border-4 border-ai-blue/50">
+                        <div class="absolute top-8 left-1/2 transform -translate-x-1/2">
+                            <h3 class="text-2xl font-bold text-ai-blue">Artificial Intelligence</h3>
+                            <p class="text-sm text-gray-300">Computers doing human-like tasks</p>
+                        </div>
+                        
+                        <!-- Middle Doll - ML -->
+                        <div class="relative bg-gradient-to-br from-ai-teal/40 to-ai-teal/20 rounded-full aspect-square max-w-sm mx-auto p-8 border-4 border-ai-teal/50">
+                            <div class="absolute top-6 left-1/2 transform -translate-x-1/2">
+                                <h4 class="text-lg font-bold text-ai-teal">Machine Learning</h4>
+                                <p class="text-xs text-gray-300">Pattern recognition</p>
+                            </div>
+                            
+                            <!-- Inner Doll - Deep Learning -->
+                            <div class="relative bg-gradient-to-br from-ai-purple/50 to-ai-purple/30 rounded-full aspect-square max-w-xs mx-auto p-6 border-4 border-ai-purple/50">
+                                <div class="absolute top-4 left-1/2 transform -translate-x-1/2">
+                                    <h5 class="text-base font-bold text-ai-purple">Deep Learning</h5>
+                                    <p class="text-xs text-gray-300">Neural networks</p>
+                                </div>
+                                
+                                <!-- Core - NLP -->
+                                <div class="bg-gradient-to-br from-yellow-400/60 to-orange-400/40 rounded-full aspect-square max-w-32 mx-auto p-4 border-4 border-yellow-400/50 flex items-center justify-center">
+                                    <div class="text-center">
+                                        <h6 class="text-sm font-bold text-yellow-300">NLP</h6>
+                                        <p class="text-xs text-gray-300">Language</p>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- Explanation Cards -->
+                <div class="grid md:grid-cols-2 lg:grid-cols-4 gap-6 max-w-6xl mx-auto">
+                    <div class="bg-ai-blue/20 backdrop-blur-sm rounded-2xl p-6 border border-ai-blue/30">
+                        <div class="w-12 h-12 bg-ai-blue rounded-xl flex items-center justify-center mb-4">
+                            <i class="fas fa-robot text-white"></i>
+                        </div>
+                        <h3 class="text-lg font-bold mb-2 text-ai-blue">Artificial Intelligence</h3>
+                        <p class="text-gray-300 text-sm">The broadest concept - computers performing tasks that typically require human intelligence</p>
+                    </div>
+                    
+                    <div class="bg-ai-teal/20 backdrop-blur-sm rounded-2xl p-6 border border-ai-teal/30">
+                        <div class="w-12 h-12 bg-ai-teal rounded-xl flex items-center justify-center mb-4">
+                            <i class="fas fa-chart-bar text-white"></i>
+                        </div>
+                        <h3 class="text-lg font-bold mb-2 text-ai-teal">Machine Learning</h3>
+                        <p class="text-gray-300 text-sm">Systems that learn from data to make predictions or decisions without explicit programming</p>
+                    </div>
+                    
+                    <div class="bg-ai-purple/20 backdrop-blur-sm rounded-2xl p-6 border border-ai-purple/30">
+                        <div class="w-12 h-12 bg-ai-purple rounded-xl flex items-center justify-center mb-4">
+                            <i class="fas fa-brain text-white"></i>
+                        </div>
+                        <h3 class="text-lg font-bold mb-2 text-ai-purple">Deep Learning</h3>
+                        <p class="text-gray-300 text-sm">Neural networks with multiple layers that can learn complex patterns from data</p>
+                    </div>
+                    
+                    <div class="bg-yellow-400/20 backdrop-blur-sm rounded-2xl p-6 border border-yellow-400/30">
+                        <div class="w-12 h-12 bg-yellow-500 rounded-xl flex items-center justify-center mb-4">
+                            <i class="fas fa-comments text-white"></i>
+                        </div>
+                        <h3 class="text-lg font-bold mb-2 text-yellow-400">Natural Language Processing</h3>
+                        <p class="text-gray-300 text-sm">The skill that enables AI to understand and generate human language</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Slide 5: Technical Concepts -->
+        <section id="slide-5" class="slide min-h-screen flex items-center justify-center px-6 hidden">
+            <div class="max-w-6xl mx-auto">
+                <div class="text-center mb-16">
+                    <h1 class="text-5xl md:text-7xl font-bold mb-6 bg-gradient-to-r from-ai-blue to-ai-teal bg-clip-text text-transparent">
+                        Your AI User Manual
+                    </h1>
+                    <p class="text-xl text-gray-300 max-w-3xl mx-auto">
+                        Core Technical Concepts Made Simple
+                    </p>
+                </div>
+                
+                <!-- Core Concepts Grid -->
+                <div class="grid lg:grid-cols-3 gap-8 mb-12">
+                    <!-- Data -->
+                    <div class="bg-gradient-to-br from-ai-blue/20 to-ai-blue/10 rounded-3xl p-8 text-center">
+                        <div class="w-20 h-20 bg-ai-blue rounded-2xl flex items-center justify-center mx-auto mb-6">
+                            <i class="fas fa-database text-3xl text-white"></i>
+                        </div>
+                        <h3 class="text-2xl font-bold text-ai-blue mb-4">DATA</h3>
+                        <p class="text-gray-300 mb-4">Training material (billions of text examples, images, conversations)</p>
+                        <div class="bg-white/10 rounded-xl p-4">
+                            <p class="text-sm text-gray-400">Like feeding a student millions of books before an exam</p>
+                        </div>
+                    </div>
+                    
+                    <!-- Model -->
+                    <div class="bg-gradient-to-br from-ai-teal/20 to-ai-teal/10 rounded-3xl p-8 text-center">
+                        <div class="w-20 h-20 bg-ai-teal rounded-2xl flex items-center justify-center mx-auto mb-6">
+                            <i class="fas fa-brain text-3xl text-white"></i>
+                        </div>
+                        <h3 class="text-2xl font-bold text-ai-teal mb-4">MODEL</h3>
+                        <p class="text-gray-300 mb-4">The trained AI brain (GPT-4, Claude, etc.) with billions of parameters</p>
+                        <div class="bg-white/10 rounded-xl p-4">
+                            <p class="text-sm text-gray-400">Like a graduate who studied everything and can answer questions</p>
+                        </div>
+                    </div>
+                    
+                    <!-- Prompt -->
+                    <div class="bg-gradient-to-br from-ai-purple/20 to-ai-purple/10 rounded-3xl p-8 text-center">
+                        <div class="w-20 h-20 bg-ai-purple rounded-2xl flex items-center justify-center mx-auto mb-6">
+                            <i class="fas fa-comment-dots text-3xl text-white"></i>
+                        </div>
+                        <h3 class="text-2xl font-bold text-ai-purple mb-4">PROMPT</h3>
+                        <p class="text-gray-300 mb-4">Your instructions to the AI (the questions or tasks you give it)</p>
+                        <div class="bg-white/10 rounded-xl p-4">
+                            <p class="text-sm text-gray-400">Like asking a consultant a specific, well-crafted question</p>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- Context Window Visualization -->
+                <div class="bg-gradient-to-r from-ai-blue/10 to-ai-teal/10 rounded-3xl p-8 mb-8">
+                    <div class="flex items-center justify-between mb-6">
+                        <h3 class="text-2xl font-bold">Context Window</h3>
+                        <div class="text-right">
+                            <p class="text-lg font-semibold text-ai-teal">Up to 200 pages!</p>
+                            <p class="text-sm text-gray-400">AI's short-term memory</p>
+                        </div>
+                    </div>
+                    
+                    <!-- Thermometer visualization -->
+                    <div class="relative bg-white/10 rounded-full h-8 overflow-hidden">
+                        <div class="absolute left-0 top-0 h-full bg-gradient-to-r from-ai-blue to-ai-teal rounded-full transition-all duration-2000" style="width: 85%"></div>
+                        <div class="absolute inset-0 flex items-center justify-between px-4 text-sm font-medium">
+                            <span>1 page</span>
+                            <span class="text-ai-teal">200 pages</span>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- Technical Terms Glossary -->
+                <div class="grid md:grid-cols-2 gap-6">
+                    <div class="space-y-4">
+                        <div class="bg-white/10 rounded-2xl p-6">
+                            <div class="flex items-center space-x-3 mb-2">
+                                <div class="w-8 h-8 bg-ai-blue rounded-lg flex items-center justify-center">
+                                    <i class="fas fa-cog text-sm text-white"></i>
+                                </div>
+                                <h4 class="font-semibold">Parameters</h4>
+                            </div>
+                            <p class="text-gray-300 text-sm">Billions of settings that control AI behavior (like knobs on a mixing board)</p>
+                        </div>
+                        
+                        <div class="bg-white/10 rounded-2xl p-6">
+                            <div class="flex items-center space-x-3 mb-2">
+                                <div class="w-8 h-8 bg-ai-teal rounded-lg flex items-center justify-center">
+                                    <i class="fas fa-plug text-sm text-white"></i>
+                                </div>
+                                <h4 class="font-semibold">API</h4>
+                            </div>
+                            <p class="text-gray-300 text-sm">How software talks to AI (like a restaurant waiter taking your order to the kitchen)</p>
+                        </div>
+                    </div>
+                    
+                    <div class="space-y-4">
+                        <div class="bg-white/10 rounded-2xl p-6">
+                            <div class="flex items-center space-x-3 mb-2">
+                                <div class="w-8 h-8 bg-ai-purple rounded-lg flex items-center justify-center">
+                                    <i class="fas fa-coins text-sm text-white"></i>
+                                </div>
+                                <h4 class="font-semibold">Tokens</h4>
+                            </div>
+                            <p class="text-gray-300 text-sm">Units of text AI processes (~0.75 words each, like counting syllables)</p>
+                        </div>
+                        
+                        <div class="bg-white/10 rounded-2xl p-6">
+                            <div class="flex items-center space-x-3 mb-2">
+                                <div class="w-8 h-8 bg-yellow-500 rounded-lg flex items-center justify-center">
+                                    <i class="fas fa-memory text-sm text-white"></i>
+                                </div>
+                                <h4 class="font-semibold">Training</h4>
+                            </div>
+                            <p class="text-gray-300 text-sm">Teaching AI by showing it millions of examples (like studying for years)</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Continue with more slides... For brevity, I'll include a few more key slides -->
+        
+        <!-- Slide 12: Perfect Prompt Recipe -->
+        <section id="slide-12" class="slide min-h-screen flex items-center justify-center px-6 hidden">
+            <div class="max-w-6xl mx-auto">
+                <div class="text-center mb-16">
+                    <h1 class="text-5xl md:text-7xl font-bold mb-6 bg-gradient-to-r from-ai-purple to-ai-blue bg-clip-text text-transparent">
+                        Perfect Prompt Recipe
+                    </h1>
+                    <p class="text-xl text-gray-300 max-w-3xl mx-auto">
+                        The 3-Part Formula for Better Results
+                    </p>
+                </div>
+                
+                <!-- 3-Part Formula -->
+                <div class="grid lg:grid-cols-3 gap-8 mb-12">
+                    <!-- Role -->
+                    <div class="bg-gradient-to-br from-ai-blue/20 to-ai-blue/10 rounded-3xl p-8 text-center hover:scale-105 transition-transform duration-300">
+                        <div class="w-20 h-20 bg-ai-blue rounded-2xl flex items-center justify-center mx-auto mb-6">
+                            <i class="fas fa-theater-masks text-3xl text-white"></i>
+                        </div>
+                        <h3 class="text-2xl font-bold text-ai-blue mb-4">ROLE</h3>
+                        <p class="text-gray-300 mb-4">Tell AI who to be</p>
+                        <div class="bg-white/10 rounded-xl p-4">
+                            <p class="text-sm text-gray-400">"Act as a world-class copywriter"</p>
+                        </div>
+                    </div>
+                    
+                    <!-- Context -->
+                    <div class="bg-gradient-to-br from-ai-teal/20 to-ai-teal/10 rounded-3xl p-8 text-center hover:scale-105 transition-transform duration-300">
+                        <div class="w-20 h-20 bg-ai-teal rounded-2xl flex items-center justify-center mx-auto mb-6">
+                            <i class="fas fa-map-pin text-3xl text-white"></i>
+                        </div>
+                        <h3 class="text-2xl font-bold text-ai-teal mb-4">CONTEXT</h3>
+                        <p class="text-gray-300 mb-4">Provide background information</p>
+                        <div class="bg-white/10 rounded-xl p-4">
+                            <p class="text-sm text-gray-400">"My audience is new homeowners"</p>
+                        </div>
+                    </div>
+                    
+                    <!-- Task -->
+                    <div class="bg-gradient-to-br from-ai-purple/20 to-ai-purple/10 rounded-3xl p-8 text-center hover:scale-105 transition-transform duration-300">
+                        <div class="w-20 h-20 bg-ai-purple rounded-2xl flex items-center justify-center mx-auto mb-6">
+                            <i class="fas fa-check-circle text-3xl text-white"></i>
+                        </div>
+                        <h3 class="text-2xl font-bold text-ai-purple mb-4">TASK</h3>
+                        <p class="text-gray-300 mb-4">Specify exact requirements</p>
+                        <div class="bg-white/10 rounded-xl p-4">
+                            <p class="text-sm text-gray-400">"Write 3 email subject lines under 10 words"</p>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- Before/After Demo -->
+                <div class="grid md:grid-cols-2 gap-8 max-w-5xl mx-auto">
+                    <!-- Bad Prompt -->
+                    <div class="bg-red-500/10 border border-red-500/30 rounded-3xl p-8">
+                        <div class="flex items-center space-x-3 mb-6">
+                            <div class="w-12 h-12 bg-red-500 rounded-xl flex items-center justify-center">
+                                <i class="fas fa-times text-white"></i>
+                            </div>
+                            <h3 class="text-xl font-bold text-red-400">VAGUE PROMPT</h3>
+                        </div>
+                        <div class="bg-black/30 rounded-xl p-4 mb-4">
+                            <p class="text-gray-300 font-mono text-sm">"Write me some marketing copy"</p>
+                        </div>
+                        <div class="text-red-400 text-sm">
+                            ❌ No role, context, or specific requirements
+                        </div>
+                    </div>
+                    
+                    <!-- Good Prompt -->
+                    <div class="bg-green-500/10 border border-green-500/30 rounded-3xl p-8">
+                        <div class="flex items-center space-x-3 mb-6">
+                            <div class="w-12 h-12 bg-green-500 rounded-xl flex items-center justify-center">
+                                <i class="fas fa-check text-white"></i>
+                            </div>
+                            <h3 class="text-xl font-bold text-green-400">SPECIFIC PROMPT</h3>
+                        </div>
+                        <div class="bg-black/30 rounded-xl p-4 mb-4">
+                            <p class="text-gray-300 font-mono text-sm">"Act as a world-class copywriter. My audience is new homeowners aged 25-35 who just bought their first house. Write 3 email subject lines under 10 words with a professional yet friendly tone that promotes our home maintenance app."</p>
+                        </div>
+                        <div class="text-green-400 text-sm">
+                            ✅ Clear role + context + specific task
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- Live Demo Button -->
+                <div class="text-center mt-12">
+                    <button class="bg-gradient-to-r from-ai-blue to-ai-teal hover:from-ai-blue/80 hover:to-ai-teal/80 px-8 py-4 rounded-2xl font-semibold text-lg transition-all duration-300 transform hover:scale-105">
+                        <i class="fas fa-play mr-2"></i>
+                        See Live Demo
+                    </button>
+                </div>
+            </div>
+        </section>
+
+    </main>
+
+    <!-- Slide Indicator Dots -->
+    <div class="fixed bottom-8 left-1/2 transform -translate-x-1/2 z-50">
+        <div class="flex space-x-2">
+            <div class="slide-dot active w-3 h-3 bg-ai-blue rounded-full cursor-pointer transition-all duration-300"></div>
+            <div class="slide-dot w-2 h-2 bg-white/30 rounded-full cursor-pointer transition-all duration-300"></div>
+            <div class="slide-dot w-2 h-2 bg-white/30 rounded-full cursor-pointer transition-all duration-300"></div>
+            <div class="slide-dot w-2 h-2 bg-white/30 rounded-full cursor-pointer transition-all duration-300"></div>
+            <div class="slide-dot w-2 h-2 bg-white/30 rounded-full cursor-pointer transition-all duration-300"></div>
+            <div class="slide-dot w-2 h-2 bg-white/30 rounded-full cursor-pointer transition-all duration-300"></div>
+            <div class="slide-dot w-2 h-2 bg-white/30 rounded-full cursor-pointer transition-all duration-300"></div>
+            <div class="slide-dot w-2 h-2 bg-white/30 rounded-full cursor-pointer transition-all duration-300"></div>
+            <div class="slide-dot w-2 h-2 bg-white/30 rounded-full cursor-pointer transition-all duration-300"></div>
+            <div class="slide-dot w-2 h-2 bg-white/30 rounded-full cursor-pointer transition-all duration-300"></div>
+            <div class="slide-dot w-2 h-2 bg-white/30 rounded-full cursor-pointer transition-all duration-300"></div>
+            <div class="slide-dot w-2 h-2 bg-white/30 rounded-full cursor-pointer transition-all duration-300"></div>
+            <div class="slide-dot w-2 h-2 bg-white/30 rounded-full cursor-pointer transition-all duration-300"></div>
+            <div class="slide-dot w-2 h-2 bg-white/30 rounded-full cursor-pointer transition-all duration-300"></div>
+        </div>
+    </div>
+
+    <!-- JavaScript for Presentation Functionality -->
+    <script>
+    (() => {
+        let currentSlide = 1;
+        const totalSlides = 14;
+        
+        // Elements
+        const slides = document.querySelectorAll('.slide');
+        const progressBar = document.getElementById('progress-bar');
+        const slideCounter = document.getElementById('slide-counter');
+        const totalSlidesEl = document.getElementById('total-slides');
+        const prevBtn = document.getElementById('prev-btn');
+        const nextBtn = document.getElementById('next-btn');
+        const slideDots = document.querySelectorAll('.slide-dot');
+        
+        // Initialize
+        totalSlidesEl.textContent = totalSlides;
+        updateSlide();
+        
+        // Navigation functions
+        function showSlide(n) {
+            if (n < 1) n = 1;
+            if (n > totalSlides) n = totalSlides;
+            
+            currentSlide = n;
+            updateSlide();
+        }
+        
+        function updateSlide() {
+            // Hide all slides
+            slides.forEach(slide => {
+                slide.classList.add('hidden');
+                slide.classList.remove('active');
+            });
+            
+            // Show current slide
+            const currentSlideEl = document.getElementById(`slide-${currentSlide}`);
+            if (currentSlideEl) {
+                currentSlideEl.classList.remove('hidden');
+                currentSlideEl.classList.add('active');
+            }
+            
+            // Update progress bar
+            const progress = (currentSlide / totalSlides) * 100;
+            progressBar.style.width = `${progress}%`;
+            
+            // Update slide counter
+            slideCounter.textContent = currentSlide;
+            
+            // Update navigation buttons
+            prevBtn.disabled = currentSlide === 1;
+            nextBtn.disabled = currentSlide === totalSlides;
+            
+            // Update slide dots
+            slideDots.forEach((dot, index) => {
+                dot.classList.remove('active', 'w-3', 'h-3', 'bg-ai-blue');
+                dot.classList.add('w-2', 'h-2', 'bg-white/30');
+                
+                if (index + 1 === currentSlide) {
+                    dot.classList.add('active', 'w-3', 'h-3', 'bg-ai-blue');
+                    dot.classList.remove('w-2', 'h-2', 'bg-white/30');
+                }
+            });
+        }
+        
+        // Event listeners
+        prevBtn.addEventListener('click', () => showSlide(currentSlide - 1));
+        nextBtn.addEventListener('click', () => showSlide(currentSlide + 1));
+        
+        // Keyboard navigation
+        document.addEventListener('keydown', (e) => {
+            switch (e.key) {
+                case 'ArrowLeft':
+                case 'ArrowUp':
+                    showSlide(currentSlide - 1);
+                    break;
+                case 'ArrowRight':
+                case 'ArrowDown':
+                case ' ':
+                    e.preventDefault();
+                    showSlide(currentSlide + 1);
+                    break;
+                case 'Home':
+                    showSlide(1);
+                    break;
+                case 'End':
+                    showSlide(totalSlides);
+                    break;
+            }
+        });
+        
+        // Slide dot navigation
+        slideDots.forEach((dot, index) => {
+            dot.addEventListener('click', () => showSlide(index + 1));
+        });
+        
+        // Interactive elements
+        document.querySelectorAll('.poll-option').forEach(option => {
+            option.addEventListener('click', function() {
+                // TODO: Implement poll voting logic
+                this.classList.add('bg-ai-blue/50');
+                setTimeout(() => {
+                    this.classList.remove('bg-ai-blue/50');
+                }, 200);
+            });
+        });
+        
+        // Auto-advance slides (optional - disabled by default)
+        // setInterval(() => {
+        //     if (currentSlide < totalSlides) {
+        //         showSlide(currentSlide + 1);
+        //     }
+        // }, 30000); // 30 seconds per slide
+        
+    })();
+    </script>
+
+</body>
+</html>
