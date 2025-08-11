@@ -37,7 +37,7 @@ git remote -v
 echo ""
 echo "6. Adding files and creating commit..."
 git add .
-git commit -m "🚀 Initial commit: Interactive AI Presentation with 14 slides
+git commit -m "🚀 Interactive AI Presentation with 14 slides
 
 Features:
 - Modern React TypeScript frontend with animations
