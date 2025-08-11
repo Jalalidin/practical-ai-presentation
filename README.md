@@ -1,7 +1,13 @@
 # Practical AI — Beyond ChatGPT
 ### An open-source, interactive slide deck that explains AI basics for everyone
 
+Live demo: https://jalalidin.github.io/practical-ai-presentation/
+
+## About
+
 This project is a friendly, interactive presentation for non‑technical audiences. It explains what AI is, how modern tools like ChatGPT work, and where AI can help in day‑to‑day life and work. It’s built to be shared in meetups, classrooms, community groups, and team sessions. Fully open‑source—feel free to fork, remix, and present.
+
+Live demo: https://jalalidin.github.io/practical-ai-presentation/
 
 ## 🚀 Live Demo
 
